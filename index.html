@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,12 @@
         background-color: #E0E0E0; /* Set background color of the whole page */
         margin: 0;
         padding: 0;
+        font-family: 'DG Baysan', sans-serif; /* Use custom font family */
+    }
+    @font-face {
+        font-family: 'DG Baysan';
+        src: url('ArbFONTS-DG-Baysan-Bold.ttf') format('truetype'); /* Path to your font file */
+        font-weight: bold; /* Specify font weight if necessary */
     }
     #container {
         display: flex;
@@ -50,9 +56,9 @@
     <div id="canvasContainer">
         <canvas id="canvas" width="1350" height="1350"></canvas>
     </div>
-    <input type="text" id="textInput" placeholder="Enter text">
-    <button id="addTextBtn">Add Text to Image</button>
-    <button id="saveBtn">Save Image</button>
+    <input type="text" id="textInput" placeholder="أدخل النص">
+    <button id="addTextBtn">إضافة نص إلى الصورة</button>
+    <button id="saveBtn">حفظ الصورة</button>
 </div>
 
 <script>
@@ -71,10 +77,10 @@
 
     addTextBtn.addEventListener('click', function() {
         const text = textInput.value;
-        ctx.font = 'bold 50px "DG Baysan"'; // Specify font family, size, and weight
-        ctx.fillStyle = '#54686D'; // Specify text color
+        ctx.font = 'bold 55px "DG Baysan"'; // Specify font family, size, and weight
+        ctx.fillStyle = '#DEB242'; // Specify text color
         const textWidth = ctx.measureText(text).width;
-        const xPos = (canvas.width - textWidth) / 2; // Center horizontally
+        const xPos = (canvas.width + textWidth) / 2; // Center horizontally
         const yPos = 1078; // Specify y position
         ctx.fillText(text, xPos, yPos);
     });

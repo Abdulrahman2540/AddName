@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Editor</title>
+<style>
+    body {
+        background-color: #F5F5F5; /* Set background color of the whole page */
+    }
+    #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+    #canvasContainer {
+        position: relative;
+    }
+    #canvas {
+        /* Removed border */
+    }
+    #textInput {
+        margin-top: 20px;
+        width: 200px;
+        height: 40px;
+        text-align: center;
+        font-size: 16px;
+    }
+    #addTextBtn, #saveBtn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <div id="canvasContainer">
+        <canvas id="canvas" width="1350" height="1350"></canvas>
+    </div>
+    <input type="text" id="textInput" placeholder="Enter text">
+    <button id="addTextBtn">Add Text to Image</button>
+    <button id="saveBtn">Save Image</button>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const textInput = document.getElementById('textInput');
+    const addTextBtn = document.getElementById('addTextBtn');
+    const saveBtn = document.getElementById('saveBtn');
+
+    let img = new Image();
+    img.src = 'bg.png'; // Path to your image
+
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+
+    addTextBtn.addEventListener('click', function() {
+        const text = textInput.value;
+        ctx.font = 'bold 50px "DG Baysan"'; // Specify font family, size, and weight
+        ctx.fillStyle = '#54686D'; // Specify text color
+        const textWidth = ctx.measureText(text).width;
+        const xPos = (canvas.width - textWidth) / 2; // Center horizontally
+        const yPos = 1078; // Specify y position
+        ctx.fillText(text, xPos, yPos);
+    });
+
+    saveBtn.addEventListener('click', function() {
+        const dataURL = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'edited_image.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+</script>
+</body>
+</html>
